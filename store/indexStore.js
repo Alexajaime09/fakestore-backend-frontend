@@ -22,6 +22,19 @@ const getProducts = async () => {
   };
 };
 
+const createProduct = async (newp) => {
+  let products = await getData();
+  const newArray = { ...products, newp };
+  products = newArray;
+
+  return {
+    status: {
+      code: 200,
+      message: newp,
+    },
+  };
+};
+
 const getProductById = async (id) => {
   const products = await getData();
   const productFound = products.find((p) => p.id === parseInt(id));
@@ -40,36 +53,30 @@ const getProductById = async (id) => {
       code: 202,
       message: "product found",
     },
+    productFound,
   };
 };
 
-const createProduct = async (newp) => {
-  let products = await getData();
-  const newArray = { ...products, newp };
-  products = newArray;
-
-  return {
-    status: {
-      code: 200,
-      message: newp,
-    },
-  };
-};
-
-const updateProduct = async (updateProduct) => {
+const updateProduct = async (productId, product) => {
   let listProducts = await getData();
-  const newArray = listProducts.map((p) =>
-    p.id === updateProduct.id
-      ? { ...listProducts, ...updateProduct }
-      : listProducts
-  );
 
-  listProducts = newArray;
-  console.log(listProducts);
+  const indexProduct = listProducts.findIndex(
+    (p) => p.id === parseInt(productId)
+  );
+  if (indexProduct === -1) {
+    return {
+      code: 404,
+      message: "product not found",
+    };
+  }
+
+  listProducts[indexProduct] = { ...listProducts[indexProduct], ...product };
+
   return {
     status: {
       code: 200,
-      message: data,
+      message: "correct",
+      updateProduct: listProducts[indexProduct],
     },
   };
 };

@@ -1,16 +1,39 @@
 const indexStore = require("../store/indexStore");
 
-exports.getProducts = (req, res) => {
-  const listProduct = indexStore.getProducts();
-  res.json(listProduct);
+exports.getProducts = async (req, res) => {
+  try {
+    const listProduct = await indexStore.getProducts();
+    res.json(listProduct);
+  } catch (err) {
+    console.log("error obtain products", err);
+    res.status(500).json({
+      error: "error en el servidor",
+    });
+  }
 };
 
-exports.getProductById = (req, res) => {
-  const idProduct = indexStore.getProductById(req.params.id);
-  res.status(idProduct.status.code).json(idProduct);
+exports.getProductById = async (req, res) => {
+  try {
+    const idProduct = await indexStore.getProductById(req.params.id);
+    res.json(idProduct);
+  } catch (err) {
+    console.log("error to find", err);
+    res.status(500).json({
+      error: err,
+    });
+  }
 };
 
-exports.createProduct = (res, req) => {
-  const newProduct = indexStore.createProduct(req.body);
-  res.status(newProduct.status.code).json(newProduct);
+exports.createProduct = async (req, res) => {
+  const newProduct = await indexStore.createProduct(req.body);
+  res.json(newProduct);
+};
+
+exports.updateProduct = async (req, res) => {
+  try {
+    const updated = await indexStore.updateProduct(req.params.id, req.body);
+    res.json(updated);
+  } catch (err) {
+    console.log("error", err);
+  }
 };

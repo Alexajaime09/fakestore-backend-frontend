@@ -29,4 +29,13 @@ router.post(
   indexController.createProduct
 );
 
+router.put(
+  "/products/:id",
+  (_, __, next) => {
+    console.log("actualizando producto");
+    next();
+  },
+  indexController.updateProduct
+);
+
 module.exports = router;

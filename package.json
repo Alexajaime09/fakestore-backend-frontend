@@ -7,6 +7,6 @@
     "nodemon": "^3.1.9"
   },
   "scripts": {
-    "dev": "nodemon src/indexStore.js"
+    "dev": "nodemon index.js"
   }
 }
