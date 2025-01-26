@@ -1,7 +1,7 @@
 import React from "react";
 
 const CartTab = () => {
-  return <div>C</div>;
+  return <div>CartTab</div>;
 };
 
 export default CartTab;

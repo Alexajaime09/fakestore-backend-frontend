@@ -37,3 +37,8 @@ exports.updateProduct = async (req, res) => {
     console.log("error", err);
   }
 };
+
+exports.deleteProduct = async (req, res) => {
+  const productRemove = await indexStore.deleteProducts(req.params.id);
+  res.json(productRemove);
+};

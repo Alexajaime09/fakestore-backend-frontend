@@ -38,4 +38,12 @@ router.put(
   indexController.updateProduct
 );
 
+router.delete(
+  "/products/:id",
+  (_, __, next) => {
+    console.log("eliminando producto");
+    next();
+  },
+  indexController.deleteProduct
+);
 module.exports = router;

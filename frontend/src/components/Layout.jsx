@@ -1,7 +1,18 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
+import Header from "./header";
+import CartTab from "./CartTab";
 
 const Layout = () => {
-  return <div>Layput</div>;
+  return (
+    <div className="bg-slate-100">
+      <main className="w-[1200px] max-w-full m-auto p-5">
+        <Header />
+        <Outlet />
+      </main>
+      <CartTab />
+    </div>
+  );
 };
 
 export default Layout;

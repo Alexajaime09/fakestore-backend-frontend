@@ -1,11 +1,17 @@
 const axios = require("axios");
+const { listenerCount } = require("process");
 
 const getData = async () => {
   try {
     const response = await axios.get("https://fakestoreapi.com/products");
     listProducts = response.data;
-    console.log(listProducts);
-    return listProducts;
+
+    return listProducts.map((p) => ({
+      ...p,
+      slug: p.title.replaceAll(" ", "-"),
+    }));
+
+    // return listProducts;
   } catch (err) {
     console.log(err);
   }
@@ -81,6 +87,31 @@ const updateProduct = async (productId, product) => {
   };
 };
 
+const deleteProducts = async (productId) => {
+  try {
+    const listProducts = await getData();
+    console.log(productId);
+    const productFound = listProducts.find((p) => p.id === parseInt(productId));
+    console.log(productFound);
+    if (productFound !== -1) {
+      productFound + 1;
+      listProducts.splice(productFound, 1);
+    }
+
+    return {
+      productRemove: productFound.title,
+      id: productFound.id,
+      code: 200,
+      message: "product removed from the list",
+    };
+  } catch (err) {
+    return {
+      status: 500,
+      message: err.message || "an error ocurred",
+    };
+  }
+};
+
 /* app.get("/", async (req, res) => {
   try {
     const data = await getData();
@@ -95,4 +126,5 @@ module.exports = {
   getProductById,
   createProduct,
   updateProduct,
+  deleteProducts,
 };
