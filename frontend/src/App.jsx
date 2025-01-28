@@ -1,4 +1,4 @@
-import Store from "./Store.jsx";
+import Store from "./StorePage.jsx";
 import Layout from "./components/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import Details from "./pages/Details.jsx";

@@ -3,7 +3,7 @@ const router = express.Router();
 const indexController = require("../controller/indexController");
 
 router.get(
-  "/",
+  "/products",
   (_, __, next) => {
     console.log("obteniendo datos");
     next();
