@@ -4,8 +4,8 @@ import { useFetchData } from "./useFetchData";
 import ProductCart from "./components/ProductCart";
 
 const StorePage = () => {
-  const { data, loading } = useFetchData("https://fakestoreapi.com/products");
-
+  const { data, loading } = useFetchData("http://localhost:8000/products");
+  console.log(data);
   return (
     <div>
       <h1>Products</h1>

@@ -8,10 +8,11 @@ const Details = () => {
   const navigate = useNavigate();
   const [detail, setDetail] = useState([]);
   const { data: products, loading } = useFetchData(
-    "https://fakestoreapi.com/products"
+    "http://localhost:8000/products"
   );
 
   useEffect(() => {
+    cos;
     if (!loading && products) {
       const foundDetail = products.find((product) => product.slug === slug);
       if (!foundDetail) {

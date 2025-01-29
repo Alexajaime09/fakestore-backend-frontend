@@ -44,7 +44,6 @@ const createProduct = async (newp) => {
 const getProductById = async (id) => {
   const products = await getData();
   const productFound = products.find((p) => p.id === parseInt(id));
-
   if (!productFound) {
     return {
       status: {
