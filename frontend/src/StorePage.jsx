@@ -5,13 +5,16 @@ import ProductCart from "./components/ProductCart";
 
 const StorePage = () => {
   const { data, loading } = useFetchData("http://localhost:8000/products");
-  console.log(data);
+  //console.log(data);
+
+  const products = data?.listProducts || [];
+  console.log(products);
   return (
     <div>
       <h1>Products</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
-        {data.map((product, key) => (
-          <ProductCart key={key} info={product} />
+        {products.map((product) => (
+          <ProductCart info={product} />
         ))}
       </div>
     </div>
