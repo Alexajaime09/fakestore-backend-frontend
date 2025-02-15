@@ -6,19 +6,24 @@ import { addToCart } from "../stores/cart";
 
 const ProductCart = (props) => {
   const carts = useSelector((store) => store.cart.items);
-  //console.log(carts);
+  console.log("carrito", carts);
 
   const { id, title, price, image, slug } = props.info;
   const dispatch = useDispatch();
   const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        productId: id,
-        quantity: 1,
-      })
-    );
+    try {
+      dispatch(
+        addToCart({
+          productId: id,
+          quantity: 1,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
-  //console.log(props.info);
+  console.log(props.info);
+
   return (
     <div className="bg-white p-5 rounded-xl shadow-md flex flex-col justify-center ">
       <Link

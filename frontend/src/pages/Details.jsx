@@ -1,17 +1,33 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../stores/cart";
 import { useFetchData } from "../useFetchData";
 
 const Details = () => {
   const { slug } = useParams();
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
   const [detail, setDetail] = useState([]);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.cart.items);
   const { data, loading } = useFetchData("http://localhost:8000/products");
+
   const products = data?.listProducts || [];
+
   const [numberCounter, setNumberCounter] = useState(1);
+
+  useEffect(() => {
+    if (!loading && products) {
+      const foundDetail = products.find((product) => product.slug === slug);
+      if (!foundDetail) {
+        navigate("/");
+      } else {
+        setDetail(foundDetail);
+        console.log("producto capturado", detail);
+      }
+    }
+  }, [slug, loading, products, navigate]);
 
   const addnum = (number) => {
     return number + 1;
@@ -21,18 +37,20 @@ const Details = () => {
     return number > 0 ? number - 1 : 0;
   };
 
-  useEffect(() => {
-    if (!loading && products) {
-      const foundDetail = products.find((product) => product.slug === slug);
-      if (!foundDetail) {
-        navigate("/");
-      } else {
-        setDetail(foundDetail);
-        console.log(foundDetail);
-      }
-    }
-  }, [slug, loading, products, navigate]);
+  const handleCart = () => {
+    console.log("cantidad carrito", numberCounter);
+    dispatch(
+      addToCart({
+        productId: detail.id,
+        quantity: numberCounter,
+      })
+    );
+    /*  setTimeout(() => {
+      console.log("Estado actualizado de items:", store.getState().cart.items);
+    }, 100); */
+  };
 
+  console.log(numberCounter);
   return (
     <div>
       <h2 className="text-3xl text-center">Product Details</h2>
@@ -63,7 +81,11 @@ const Details = () => {
             >
               -
             </button>
-            <button className="bg-blue-800 text-white font-medium rounded-md p-3 px-6 ">
+            <button
+              className="bg-blue-800 text-white font-medium rounded-md p-3 px-6
+           "
+              onClick={() => handleCart()}
+            >
               Add to cart
             </button>
           </div>

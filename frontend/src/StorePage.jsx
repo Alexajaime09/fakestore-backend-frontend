@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useFetchData } from "./useFetchData";
 import ProductCart from "./components/ProductCart";
-
+ 
 const StorePage = () => {
   const { data, loading } = useFetchData("http://localhost:8000/products");
   //console.log(data);

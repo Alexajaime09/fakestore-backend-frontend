@@ -10,7 +10,7 @@ const Layout = () => {
         <Header />
         <Outlet />
       </main>
-      <CartTab />
+      {<CartTab className="relative right-0 top-[10%] " />}
     </div>
   );
 };
